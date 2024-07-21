@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_layout_heroes",
+  "info": {
+    "displayName": "Hero",
+    "icon": "cube"
+  },
+  "options": {},
+  "attributes": {
+    "heroText": {
+      "type": "string"
+    },
+    "heroDescription": {
+      "type": "text"
+    }
+  }
+}

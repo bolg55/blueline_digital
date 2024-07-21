@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "navigation_sections",
+  "info": {
+    "singularName": "navigation-section",
+    "pluralName": "navigation-sections",
+    "displayName": "Navigation Section",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "navigation.nav-link"
+    }
+  }
+}

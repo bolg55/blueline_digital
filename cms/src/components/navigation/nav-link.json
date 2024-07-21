@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_navigation_nav_links",
+  "info": {
+    "displayName": "NavLink",
+    "icon": "link",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "url": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}
