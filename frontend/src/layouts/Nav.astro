@@ -15,18 +15,18 @@ interface Props {
 const { MainMenuItems } = Astro.props as Props;
 ---
 
-<header class='lg:flex p-5 gap-5'>
+<header class='flex items-center justify-between p-5 w-full'>
   <Astronav>
-    <div class='flex w-full justify-between'>
-      <a>My Logo</a>
-      <div class='block lg:hidden'>
-        <MenuIcon class='w-6 h-6 text-gray-800' />
-      </div>
-    </div>
-    <MenuItems class='hidden lg:flex'>
+    <!-- Logo on the left -->
+    <a href='/' class='text-2xl font-semibold'>My Logo</a>
+
+    <!-- Navigation links centered on desktop -->
+    <MenuItems class='hidden lg:flex lg:flex-grow lg:justify-center'>
       <ul class='flex flex-col lg:flex-row lg:gap-5'>
         {
-          MainMenuItems.map((item: NavItem) => (
+          MainMenuItems.filter(
+            (item) => item.__component !== 'navigation.menu-button'
+          ).map((item: NavItem) => (
             <li>
               {item.__component === 'navigation.nav-link' && (
                 <a href={item.url}>{item.title}</a>
@@ -51,19 +51,17 @@ const { MainMenuItems } = Astro.props as Props;
                     </svg>
                   </button>
                   <DropdownItems class='relative'>
-                    <div class='absolute top-2'>
-                      <ul class='shadow rounded text-sm min-w-max'>
-                        {item.children?.data.attributes.links.map((link) => (
+                    <div class='absolute top-full mt-1 bg-white shadow-lg rounded-sm'>
+                      <ul class='text-sm'>
+                        {item.children?.links.map((link) => (
                           <li>
                             <a
                               href={link.url}
                               class='hover:bg-gray-200 p-2 flex items-center gap-2'
                             >
-                              {link?.icon?.data !== null && (
+                              {link?.icon?.url && (
                                 <img
-                                  src={`${import.meta.env.STRAPI_URL}${
-                                    link?.icon?.data?.attributes?.url
-                                  }`}
+                                  src={`${import.meta.env.STRAPI_URL}${link?.icon?.url}`}
                                   alt={link.title}
                                   class='w-4 h-4 inline-block bg-transparent'
                                 />
@@ -77,18 +75,31 @@ const { MainMenuItems } = Astro.props as Props;
                   </DropdownItems>
                 </Dropdown>
               )}
-              {item.__component === 'navigation.menu-button' && (
-                <a
-                  href={item.url}
-                  class={`bg-blue-500 hover:bg-blue-600 p-2 rounded ${item.type === 'secondary' ? 'bg-gray-500' : ''}`}
-                >
-                  {item.title}
-                </a>
-              )}
             </li>
           ))
         }
       </ul>
     </MenuItems>
+
+    <!-- Hamburger menu on the right only visible on mobile -->
+    <div class='lg:hidden'>
+      <MenuIcon class='w-6 h-6 text-gray-800' />
+    </div>
+
+    <!-- Buttons visible only on desktop -->
+    <div class='hidden lg:flex gap-3'>
+      {
+        MainMenuItems.filter(
+          (item) => item.__component === 'navigation.menu-button'
+        ).map((item: NavItem) => (
+          <a
+            href={item.url}
+            class={`bg-blue-500 hover:bg-blue-600 p-2 rounded ${item.type === 'secondary' ? 'bg-gray-500' : ''}`}
+          >
+            {item.title}
+          </a>
+        ))
+      }
+    </div>
   </Astronav>
 </header>

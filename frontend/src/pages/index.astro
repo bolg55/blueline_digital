@@ -4,16 +4,11 @@ import Hero from '../components/Hero.astro';
 import Layout from '../layouts/Layout.astro';
 import { fetchApi } from '../lib/strapi';
 
-const queryParameters = {
-  'populate[0]': 'LandingPage',
-  'populate[1]': '*',
-};
-
-const pageData = await fetchApi({
-  endpoint: 'pages',
-  wrappedByKey: 'data',
-  page: 'LandingPage',
-});
+// const pageData = await fetchApi({
+//   endpoint: 'pages',
+//   wrappedByKey: 'data',
+//   page: 'LandingPage',
+// });
 ---
 
 <Layout title='Welcome to Astro.'>
@@ -21,7 +16,7 @@ const pageData = await fetchApi({
     <h1 class='text-2xl font-semibold'>
       Welcome to <span class='text-red-500'>Astro</span>
     </h1>
-    <pre>{JSON.stringify(pageData,null,2)}</pre>
+    <!-- <pre>{JSON.stringify(pageData,null,2)}</pre> -->
     <Hero />
     <About />
   </main>

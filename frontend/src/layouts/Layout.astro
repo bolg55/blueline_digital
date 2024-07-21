@@ -1,32 +1,32 @@
 ---
-import Head from './Head.astro';
 import '@fontsource/montserrat';
+import { fetchApi } from '../lib/strapi';
+import { mainMenuQuery } from '../queries';
+import { getStrapiURL } from '../utils/getStrapi';
+import Head from './Head.astro';
 import Nav from './Nav.astro';
 const { title, description } = Astro.props;
-import { fetchApi } from '../lib/strapi';
-import type { ApiResponse } from '../interfaces/NavItem';
 
-const queryParameters = {
-  'populate[0]': 'MainMenuItems',
-  'populate[1]': 'MainMenuItems.children',
-  'populate[2]': 'MainMenuItems.children.links',
-  'populate[3]': 'MainMenuItems.children.links.icon',
-};
+async function fetchData() {
+  const path = '/api/main-menu';
+  const baseUrl = getStrapiURL();
+  const query = mainMenuQuery;
 
-const navData: ApiResponse = await fetchApi({
-  endpoint: 'main-menu',
-  wrappedByKey: 'data',
-  query: queryParameters,
-});
+  const url = new URL(path, baseUrl);
+  url.search = query;
 
-const strapiData = navData.attributes.MainMenuItems;
+  const strapiData = await fetchApi(url.href);
+  return strapiData;
+}
+
+const data = await fetchData();
 ---
 
 <!doctype html>
 <html lang='en'>
   <Head {title} {description} />
   <body>
-    <Nav MainMenuItems={strapiData} />
+    <Nav MainMenuItems={data.MainMenuItems} />
     <slot />
   </body>
 </html>

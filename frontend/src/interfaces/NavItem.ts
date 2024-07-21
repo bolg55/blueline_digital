@@ -27,14 +27,7 @@ export interface NavItem {
 
 // Interface for dropdown children (special case for navigation.dropdown)
 export interface DropdownMenu {
-  data: {
-    id: number;
-    attributes: DropdownAttributes;
-  };
-}
-
-// Interface for attributes within dropdown menus
-export interface DropdownAttributes {
+  id: number;
   title: string;
   createdAt: string;
   updatedAt: string;
@@ -52,32 +45,28 @@ export interface NavLink {
 
 // Interface for icons within navigation links
 export interface Icon {
-  data: {
-    id: number;
-    attributes: {
-      name: string;
-      alternativeText: string;
-      caption: string;
-      width: number;
-      height: number;
-      formats: {
-        thumbnail: IconFormat;
-        large: IconFormat;
-        medium: IconFormat;
-        small: IconFormat;
-      };
-      hash: string;
-      ext: string;
-      mime: string;
-      size: number;
-      url: string;
-      previewUrl: null | string;
-      provider: string;
-      provider_metadata: null | string;
-      createdAt: string;
-      updatedAt: string;
-    };
+  id: number;
+  name: string;
+  alternativeText: string;
+  caption: string;
+  width: number;
+  height: number;
+  formats: {
+    thumbnail: IconFormat;
+    large: IconFormat;
+    medium: IconFormat;
+    small: IconFormat;
   };
+  hash: string;
+  ext: string;
+  mime: string;
+  size: number;
+  url: string;
+  previewUrl: null | string;
+  provider: string;
+  provider_metadata: null | string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface IconFormat {
