@@ -1,0 +1,11 @@
+---
+import { Image } from 'astro:assets';
+const { aboutText, aboutPhoto } = Astro.props;
+// const photoUrl = aboutPhoto.startsWith('/')
+//   ? `${import.meta.env.STRAPI_URL}${aboutPhoto}`
+//   : aboutPhoto;
+---
+
+<p>{aboutText}</p>
+
+<!-- <Image src={photoUrl} alt='Test' width={400} height={400} /> -->

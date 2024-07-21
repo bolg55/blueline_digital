@@ -1,22 +1,32 @@
 ---
-interface Props {
-	title: string;
-}
+import Head from './Head.astro';
+import '@fontsource/montserrat';
+import Nav from './Nav.astro';
+const { title, description } = Astro.props;
+import { fetchApi } from '../lib/strapi';
+import type { ApiResponse } from '../interfaces/NavItem';
 
-const { title } = Astro.props;
+const queryParameters = {
+  'populate[0]': 'MainMenuItems',
+  'populate[1]': 'MainMenuItems.children',
+  'populate[2]': 'MainMenuItems.children.links',
+  'populate[3]': 'MainMenuItems.children.links.icon',
+};
+
+const navData: ApiResponse = await fetchApi({
+  endpoint: 'main-menu',
+  wrappedByKey: 'data',
+  query: queryParameters,
+});
+
+const strapiData = navData.attributes.MainMenuItems;
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang='en'>
+  <Head {title} {description} />
+  <body>
+    <Nav MainMenuItems={strapiData} />
+    <slot />
+  </body>
 </html>
