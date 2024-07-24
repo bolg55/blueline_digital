@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_elements_buttons",
+  "info": {
+    "displayName": "button"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "href": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary"
+      ]
+    },
+    "external": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

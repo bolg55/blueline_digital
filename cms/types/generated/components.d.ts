@@ -1,80 +1,64 @@
-import type { Schema, Attribute } from '@strapi/strapi';
+import type { Struct, Schema } from '@strapi/strapi';
 
-export interface LayoutHero extends Schema.Component {
-  collectionName: 'components_layout_heroes';
+export interface LayoutTopNav extends Struct.ComponentSchema {
+  collectionName: 'components_layout_top_navs';
   info: {
-    displayName: 'Hero';
-    icon: 'cube';
-  };
-  attributes: {
-    heroText: Attribute.String;
-    heroDescription: Attribute.Text;
-  };
-}
-
-export interface LayoutAbout extends Schema.Component {
-  collectionName: 'components_layout_abouts';
-  info: {
-    displayName: 'About';
-  };
-  attributes: {
-    aboutText: Attribute.String;
-    aboutPhoto: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-  };
-}
-
-export interface NavigationNavLink extends Schema.Component {
-  collectionName: 'components_navigation_nav_links';
-  info: {
-    displayName: 'NavLink';
-    icon: 'link';
+    displayName: 'Top Nav';
     description: '';
   };
   attributes: {
-    title: Attribute.String & Attribute.Required;
-    url: Attribute.String & Attribute.Required;
-    icon: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    logolink: Schema.Attribute.Component<'elements.logo-link', false>;
+    link: Schema.Attribute.Component<'elements.link', true>;
+    button: Schema.Attribute.Component<'elements.button', true>;
   };
 }
 
-export interface NavigationMenuButton extends Schema.Component {
-  collectionName: 'components_navigation_menu_buttons';
+export interface ElementsLogoLink extends Struct.ComponentSchema {
+  collectionName: 'components_elements_logo_links';
   info: {
-    displayName: 'MenuButton';
-    icon: 'cursor';
+    displayName: 'Logo Link';
   };
   attributes: {
-    title: Attribute.String & Attribute.Required;
-    url: Attribute.String & Attribute.Required;
-    type: Attribute.Enumeration<['secondary', 'primary']>;
+    image: Schema.Attribute.Media<'images'>;
+    text: Schema.Attribute.String;
+    href: Schema.Attribute.String;
   };
 }
 
-export interface NavigationDropdown extends Schema.Component {
-  collectionName: 'components_navigation_dropdowns';
+export interface ElementsLink extends Struct.ComponentSchema {
+  collectionName: 'components_elements_links';
   info: {
-    displayName: 'Dropdown';
-    icon: 'arrowDown';
+    displayName: 'Link';
     description: '';
   };
   attributes: {
-    children: Attribute.Relation<
-      'navigation.dropdown',
-      'oneToOne',
-      'api::navigation-section.navigation-section'
-    >;
-    title: Attribute.String & Attribute.Required;
+    href: Schema.Attribute.String;
+    text: Schema.Attribute.String;
+    external: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    children: Schema.Attribute.Relation<'oneToOne', 'api::section.section'>;
   };
 }
 
-declare module '@strapi/types' {
-  export module Shared {
-    export interface Components {
-      'layout.hero': LayoutHero;
-      'layout.about': LayoutAbout;
-      'navigation.nav-link': NavigationNavLink;
-      'navigation.menu-button': NavigationMenuButton;
-      'navigation.dropdown': NavigationDropdown;
+export interface ElementsButton extends Struct.ComponentSchema {
+  collectionName: 'components_elements_buttons';
+  info: {
+    displayName: 'button';
+  };
+  attributes: {
+    title: Schema.Attribute.String;
+    href: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<['primary', 'secondary']>;
+    external: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+  };
+}
+
+declare module '@strapi/strapi' {
+  export module Public {
+    export interface ComponentSchemas {
+      'layout.top-nav': LayoutTopNav;
+      'elements.logo-link': ElementsLogoLink;
+      'elements.link': ElementsLink;
+      'elements.button': ElementsButton;
     }
   }
 }
