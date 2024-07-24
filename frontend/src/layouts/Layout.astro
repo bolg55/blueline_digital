@@ -4,11 +4,11 @@ import { fetchApi } from '../lib/strapi';
 import { mainMenuQuery } from '../queries';
 import { getStrapiURL } from '../utils/getStrapi';
 import Head from './Head.astro';
-import Nav from './Nav.astro';
+import NavBar from '../components/NavBar.astro';
 const { title, description } = Astro.props;
 
 async function fetchData() {
-  const path = '/api/main-menu';
+  const path = '/api/global';
   const baseUrl = getStrapiURL();
   const query = mainMenuQuery;
 
@@ -26,7 +26,7 @@ const data = await fetchData();
 <html lang='en'>
   <Head {title} {description} />
   <body>
-    <Nav MainMenuItems={data.MainMenuItems} />
+    <NavBar topnav={data.topnav} />
     <slot />
   </body>
 </html>
