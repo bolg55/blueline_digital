@@ -1,0 +1,23 @@
+---
+const { children } = Astro.props;
+---
+
+<ul
+  class='absolute hidden group-hover:block bg-white overflow-hidden min-w-max shadow-lg top-full rounded text-sm'
+>
+  {
+    children.link.map(
+      (subItem: { href: string; external: boolean; text: string }) => (
+        <li>
+          <a
+            href={subItem.href}
+            target={subItem.external ? '_blank' : '_self'}
+            class='block hover:bg-red-600 gap-y-4 p-2 hover:text-white w-full text-sm text-left'
+          >
+            {subItem.text}
+          </a>
+        </li>
+      )
+    )
+  }
+</ul>

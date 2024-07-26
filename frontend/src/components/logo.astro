@@ -1,0 +1,16 @@
+---
+import { getStrapiURL } from '../utils/getStrapi';
+
+const { logoLink } = Astro.props;
+const strapiURL = getStrapiURL();
+---
+
+<a href={logoLink.href}>
+  <img
+    src={logoLink?.image.url?.startsWith('/')
+      ? `${strapiURL}${logoLink.image.url}`
+      : logoLink?.image?.url}
+    alt={logoLink?.image?.alternativeText || 'Logo'}
+    class='w-12 lg:w-16 h-auto rounded-full shadow-lg'
+  />
+</a>
