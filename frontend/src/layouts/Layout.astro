@@ -1,11 +1,11 @@
 ---
-import '@fontsource/montserrat';
+import '@fontsource-variable/mohave';
+import '@fontsource-variable/quicksand';
+import Navbar from '../components/navbar/navbar.astro';
 import { fetchApi } from '../lib/strapi';
 import { mainMenuQuery } from '../queries';
 import { getStrapiURL } from '../utils/getStrapi';
 import Head from './Head.astro';
-import NavBar from '../components/NavBar.astro';
-import Navbar from '../components/navbar/navbar.astro';
 const { title, description } = Astro.props;
 
 async function fetchData() {
@@ -26,7 +26,7 @@ const data = await fetchData();
 <!doctype html>
 <html lang='en'>
   <Head {title} {description} />
-  <body>
+  <body class='bg-[#F6F6F6]'>
     <Navbar topnav={data.topnav} />
     <slot />
   </body>

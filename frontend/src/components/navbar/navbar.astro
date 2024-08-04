@@ -3,25 +3,28 @@ import { Astronav, MenuItems, MenuIcon } from 'astro-navbar';
 import Container from '../container.astro';
 import Logo from '../logo.astro';
 import Dropdown from './dropdown.astro';
+import Button from '../button.astro';
 
 const { topnav } = Astro.props;
-const navigation = topnav.link;
-const cta = topnav.button;
-const logoLink = topnav.logolink;
+const navigation = topnav?.link;
+const cta = topnav?.button;
+const logoLink = topnav?.logolink;
 ---
 
 <Container>
-  <!-- <Dropdown topnav={topnav} client:load /> -->
-  <header class='flex flex-col lg:flex-row justify-between items-center py-3'>
+  <header class='flex flex-col lg:flex-row justify-between items-center'>
     <Astronav>
       <div class='flex w-full lg:w-auto items-center justify-between'>
-        <Logo logoLink={logoLink} />
+        <h2 class='font-semibold text-2xl'>
+          Speedy<span class='text-sky-500'>Feasters</span> Inc.
+        </h2>
+        <!-- <Logo logoLink={logoLink} /> -->
         <div class='block lg:hidden'>
-          <MenuIcon class='w-4 h-4 text-gray-700' />
+          <MenuIcon class='w-6 h-6 text-gray-700' />
         </div>
       </div>
       <MenuItems class='hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0'>
-        <ul class='flex flex-col lg:flex-row lg:gap-3'>
+        <ul class='flex flex-col lg:flex-row lg:gap-8 lg:mr-8'>
           {
             navigation.map(
               (item: {
@@ -34,7 +37,7 @@ const logoLink = topnav.logolink;
                   <a
                     href={item.href}
                     target={item.external ? '_blank' : '_self'}
-                    class='flex items-center hover:text-red-600 p-2'
+                    class='flex items-center hover:text-blue-500 p-2 text-lg font-semibold tracking-widest transition-all ease-linear'
                   >
                     {item.text}
                     {item.children?.link && (
@@ -44,7 +47,7 @@ const logoLink = topnav.logolink;
                         viewBox='0 0 24 24'
                         stroke-width='3'
                         stroke='currentColor'
-                        class='w-3 h-3 ml-1 group-hover:-rotate-90 transition-transform'
+                        class='w-3 h-3 ml-1 transition-transform'
                       >
                         <path
                           stroke-linecap='round'
@@ -60,23 +63,15 @@ const logoLink = topnav.logolink;
             )
           }
         </ul>
-        <div
-          id='cta'
-          class='flex flex-col lg:flex-row lg:items-center items-start w-full space-x-4'
-        >
+        <div id='cta' class='flex flex-col sm:flex-row gap-4'>
           {
             cta.map((item: any) => (
-              <a
+              <Button
                 href={item.href}
-                target={item.external ? '_blank' : '_self'}
-                class={
-                  item.type === 'primary'
-                    ? 'lg:bg-red-600 lg:hover:bg-red-700 lg:p-2 lg:rounded lg:text-white'
-                    : 'hover:underline decoration-red-500 decoration-2 underline-offset-2'
-                }
-              >
-                {item.title}
-              </a>
+                external={item.external}
+                title={item.title}
+                type={item.type}
+              />
             ))
           }
         </div>

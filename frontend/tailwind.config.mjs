@@ -6,7 +6,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Montserrat var', 'Montserrat', ...defaultTheme.fontFamily.sans],
+        heading: ['Mohave variable', 'Mohave', ...defaultTheme.fontFamily.sans],
+        sans: [
+          'Quicksand variable',
+          'Quicksand',
+          ...defaultTheme.fontFamily.sans,
+        ],
       },
     },
   },

@@ -2,21 +2,13 @@
 import About from '../components/About.astro';
 import Hero from '../components/Hero.astro';
 import Layout from '../layouts/Layout.astro';
-import { fetchApi } from '../lib/strapi';
-
-// const pageData = await fetchApi({
-//   endpoint: 'pages',
-//   wrappedByKey: 'data',
-//   page: 'LandingPage',
-// });
 ---
 
 <Layout title='Welcome to Astro.'>
   <main>
-    <h1 class='text-2xl font-semibold'>
-      Welcome to <span class='text-red-500'>Astro</span>
+    <h1 class='text-7xl font-heading font-semibold'>
+      Welcome to <span class='text-sky-500'>Astro</span>
     </h1>
-    <!-- <pre>{JSON.stringify(pageData,null,2)}</pre> -->
     <Hero />
     <About />
   </main>
