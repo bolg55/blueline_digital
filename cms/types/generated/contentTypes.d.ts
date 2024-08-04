@@ -460,6 +460,7 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     title: Schema.Attribute.String;
     description: Schema.Attribute.Text;
     topnav: Schema.Attribute.Component<'layout.top-nav', false>;
+    hero: Schema.Attribute.Component<'layout.hero', false>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

@@ -13,6 +13,20 @@ export interface LayoutTopNav extends Struct.ComponentSchema {
   };
 }
 
+export interface LayoutHero extends Struct.ComponentSchema {
+  collectionName: 'components_layout_heroes';
+  info: {
+    displayName: 'Hero';
+    description: '';
+  };
+  attributes: {
+    heading: Schema.Attribute.String;
+    subheading: Schema.Attribute.Text;
+    heroImg: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    cta: Schema.Attribute.Component<'elements.button', true>;
+  };
+}
+
 export interface ElementsLogoLink extends Struct.ComponentSchema {
   collectionName: 'components_elements_logo_links';
   info: {
@@ -56,6 +70,7 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'layout.top-nav': LayoutTopNav;
+      'layout.hero': LayoutHero;
       'elements.logo-link': ElementsLogoLink;
       'elements.link': ElementsLink;
       'elements.button': ElementsButton;

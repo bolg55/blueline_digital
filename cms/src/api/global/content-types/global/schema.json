@@ -23,6 +23,11 @@
       "type": "component",
       "repeatable": false,
       "component": "layout.top-nav"
+    },
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "layout.hero"
     }
   }
 }

@@ -1,6 +1,61 @@
 ---
-const { heroText, heroDescription } = Astro.props;
+import type { ButtonProps } from '../interfaces/ButtonProps';
+import { fetchApi } from '../lib/strapi';
+import { heroQuery } from '../queries';
+import { getStrapiURL } from '../utils/getStrapi';
+import Button from './button.astro';
+import Container from './container.astro';
+
+async function fetchData() {
+  const path = '/api/global';
+  const baseUrl = getStrapiURL();
+  const query = heroQuery;
+
+  const url = new URL(path, baseUrl);
+  url.search = query;
+
+  const strapiData = await fetchApi(url.href);
+  return strapiData;
+}
+
+const data = await fetchData();
+const { hero } = data;
+const strapiURL = getStrapiURL();
 ---
 
-<h1>{heroText}</h1>
-<p>{heroDescription}</p>
+<Container>
+  <section
+    class='flex flex-col-reverse lg:flex-row items-center gap-8 lg:gap-16'
+  >
+    <div class='lg:w-1/2'>
+      <h1
+        class='text-4xl text-center lg:text-left lg:text-7xl font-heading font-semibold'
+      >
+        {hero.heading}
+      </h1>
+      <p class='text-justify lg:text-lg mt-4'>
+        {hero.subheading}
+      </p>
+      <div class='flex flex-col lg:flex-row gap-4 mt-4 lg:w-3/4'>
+        {
+          hero.cta.map((item: ButtonProps) => (
+            <Button
+              href={item.href}
+              title={item.title}
+              type={item.type}
+              external={item.external}
+            />
+          ))
+        }
+      </div>
+    </div>
+
+    <img
+      src={hero?.heroImg.url?.startsWith('/')
+        ? `${strapiURL}${hero.heroImg.url}`
+        : hero.heroImg?.url}
+      alt={hero?.heroImg?.alternativeText || 'Hero Image'}
+      class='lg:w-1/2 h-auto max-w-sm lg:max-w-2xl'
+    />
+  </section>
+</Container>
